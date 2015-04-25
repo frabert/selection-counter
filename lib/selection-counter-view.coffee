@@ -67,5 +67,6 @@ class SelectionCounterView extends HTMLDivElement
     @positionSubscription?.dispose()
     @selectionAddSubscription?.dispose()
     @selectionRemoveSubscription?.dispose()
+    @tile?.destroy()
 
 module.exports = document.registerElement('selection-counter-status', prototype: SelectionCounterView.prototype)
