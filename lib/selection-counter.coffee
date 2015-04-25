@@ -1,4 +1,5 @@
 {CompositeDisposable} = require 'atom'
+SelectionCounterView = require './selection-counter-view'
 selectionCounterView = null
 
 module.exports =
@@ -17,10 +18,9 @@ module.exports =
   activate: (state) ->
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
+    selectionCounterView = new SelectionCounterView()
 
   consumeStatusBar: (statusBar) ->
-    SelectionCounterView = require './selection-counter-view'
-    selectionCounterView = new SelectionCounterView()
     selectionCounterView.initialize(statusBar)
     selectionCounterView.attach()
 
