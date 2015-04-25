@@ -9,8 +9,8 @@ module.exports =
       description: 'Whether the status hides when there is only one empty cursor'
     statusString:
       type: 'string'
-      default: "S%n"
-      description: 'The text to show in the status. %n = n. of cursors minus n. of selections, %c = n. of cursors, %s = n. of selections'
+      default: "S%s"
+      description: 'The text to show in the status. %c = n. of cursors, %s = n. of selections'
 
   subscriptions: null
 
