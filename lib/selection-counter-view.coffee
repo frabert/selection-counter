@@ -55,7 +55,7 @@ class SelectionCounterView extends HTMLDivElement
         i++
 
       @style.display = 'inline-block'
-      @textContent = @buildStatusString(numSelections, cursors.length)
+      @textContent = @buildStatusString(numSelections, cursors.length - numSelections)
     else
       @style.display = 'none'
 
