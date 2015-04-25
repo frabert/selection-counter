@@ -10,7 +10,7 @@ module.exports =
       description: 'Whether the status hides when there is only one empty cursor'
     statusString:
       type: 'string'
-      default: "S%s"
+      default: "Selections: %s Cursors: %c"
       description: 'The text to show in the status. %c = n. of cursors, %s = n. of selections'
 
   subscriptions: null
