@@ -18,26 +18,8 @@ class SelectionCounterView extends HTMLDivElement
   subscribeToActiveTextEditor: ->
     editor = @getActiveTextEditor()
 
-    @selectionSubscription?.dispose()
-    @selectionSubscription = editor?.onDidChangeSelectionRange =>
-      @updateSelectionText()
-
     @positionSubscription?.dispose()
     @positionSubscription = editor?.onDidChangeCursorPosition =>
-      @updateSelectionText()
-
-    @selectionObserve?.dispose()
-    @selectionObserve = editor?.observeSelections =>
-      @updateSelectionText()
-
-    @cursorObserve?.dispose()
-    @cursorObserve = editor?.observeCursors =>
-      @updateSelectionText()
-
-    editor?.onDidAddCursor =>
-      @updateSelectionText()
-
-    editor?.onDidRemoveCursor =>
       @updateSelectionText()
 
     editor?.onDidAddSelection =>
