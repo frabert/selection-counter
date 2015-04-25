@@ -22,10 +22,12 @@ class SelectionCounterView extends HTMLDivElement
     @positionSubscription = editor?.onDidChangeCursorPosition =>
       @updateSelectionText()
 
-    editor?.onDidAddSelection =>
+    @selectionAddSubscription?.dispose()
+    @selectionAddSubscription = editor?.onDidAddSelection =>
       @updateSelectionText()
 
-    editor?.onDidRemoveSelection =>
+    @selectionRemoveSubscription?.dispose()
+    @selectionRemoveSubscription = editor?.onDidRemoveSelection =>
       @updateSelectionText()
 
     @updateSelectionText()
@@ -62,7 +64,8 @@ class SelectionCounterView extends HTMLDivElement
 
   # Tear down any state and detach
   destroy: ->
-    #@selectionSubscription?.dispose()
-    #@positionSubscription?.dispose()
+    @positionSubscription?.dispose()
+    @selectionAddSubscription?.dispose()
+    @selectionRemoveSubscription?.dispose()
 
 module.exports = document.registerElement('selection-counter-status', prototype: SelectionCounterView.prototype)
