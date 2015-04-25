@@ -60,16 +60,17 @@ class SelectionCounterView extends HTMLDivElement
 
   updateSelectionText: ->
     editor = @getActiveTextEditor()
-    selections = editor?.getSelectedBufferRanges()
-    cursors = editor?.getCursorBufferPositions()
+    if(editor?)
+      selections = editor.getSelectedBufferRanges()
+      cursors = editor.getCursorBufferPositions()
 
-    numSelections = 0
-    if selections
-      for sel in selections
-        unless sel.isEmpty
-          numSelections = numSelections + 1
-          
-    if editor?
+      numSelections = 0
+      i = 0
+      while i < selections.length
+        if !selections[i].isEmpty()
+          numSelections++
+        i++
+
       @style.display = 'inline-block'
       @textContent = @buildStatusString(numSelections, cursors.length)
     else
