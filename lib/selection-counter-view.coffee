@@ -54,8 +54,7 @@ class SelectionCounterView extends HTMLDivElement
     if selections == 0 and cursors == 1 and hide == true
       return ''
     else
-      return pattern.replace('%n', (cursors - selections).toString())
-        .replace('%s', selections.toString())
+      pattern.replace('%s', selections.toString())
         .replace('%c', cursors.toString())
 
   updateSelectionText: ->
