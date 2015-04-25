@@ -1,0 +1,22 @@
+{
+  "name": "selection-counter",
+  "main": "./lib/selection-counter",
+  "version": "0.1.0",
+  "description": "Shows the number of current selections",
+  "activationCommands": {
+  },
+  "repository": "https://github.com/frabert/selection-counter",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    }
+  },
+  "dependencies": {
+  }
+}
