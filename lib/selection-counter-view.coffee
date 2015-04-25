@@ -68,25 +68,10 @@ class SelectionCounterView extends HTMLDivElement
       for sel in selections
         unless sel.isEmpty
           numSelections = numSelections + 1
-    # Now we have to make some reasonings...
-    # For example, if we have just one selection it may mean
-    # that there is actually just one selection,
-    # or it may mean that the only selection is the cursor, or...
-    # that we have a selection BUT getSelectedBufferRanges hasn't noticed yet.
-    if cursors?
+          
+    if editor?
       @style.display = 'inline-block'
       @textContent = @buildStatusString(numSelections, cursors.length)
-      ###
-      if cursors.length == 0
-        @textContent = buildStatusString(0)
-      else if cursors.length == 1
-        if selections[0].isEmpty
-          @textContent = buildStatusString(0)
-        else
-          @textContent = buildStatusString(1)
-      else
-        @textContent = buildStatusString(cursors.length)
-      ###
     else
       @style.display = 'none'
 
