@@ -1,7 +1,7 @@
 {
   "name": "selection-counter",
   "main": "./lib/selection-counter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shows the number of current selections",
   "activationCommands": {
   },
