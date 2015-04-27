@@ -22,7 +22,7 @@ describe 'selection-counter', ->
     expect(selectionCounter.style.display).toBe('none')
 
   describe 'when an editor is open', ->
-    [editor, pattern, hideWhenEmpty] = []
+    [editor, pattern, hideWhenEmpty, hideWhenNoSelections] = []
 
     beforeEach ->
       waitsForPromise ->
