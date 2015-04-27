@@ -8,6 +8,10 @@ module.exports =
       type: 'boolean'
       default: true
       description: 'Whether the status hides when there is only one empty cursor'
+    hideWhenNoSelections:
+      type: 'boolean'
+      default: false
+      description: 'Wheter the status hides when there are no selections'
     statusString:
       type: 'string'
       default: "Selections: %s Cursors: %c"
