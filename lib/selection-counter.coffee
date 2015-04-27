@@ -12,6 +12,11 @@ module.exports =
       type: 'string'
       default: "Selections: %s Cursors: %c"
       description: 'The text to show in the status. %c = n. of cursors, %s = n. of selections'
+    statusAlignment:
+      type: 'string'
+      default: 'left'
+      enum: ['left', 'right']
+      description: 'Whether the text should be aligned to the left or to the right. Note: might require package reactivation'
 
   subscriptions: null
 
