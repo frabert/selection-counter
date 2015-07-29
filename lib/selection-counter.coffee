@@ -14,8 +14,8 @@ module.exports =
       description: 'Wheter the status hides when there are no selections'
     statusString:
       type: 'string'
-      default: "Selections: %s Cursors: %c"
-      description: 'The text to show in the status. %c = n. of cursors, %s = n. of selections'
+      default: "Lines: %l Selections: %s Cursors: %c"
+      description: 'The text to show in the status. %l = n. lines selected, %c = n. of cursors, %s = n. of selections'
     statusAlignment:
       type: 'string'
       default: 'left'
