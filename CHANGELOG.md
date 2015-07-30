@@ -1,4 +1,4 @@
-## 0.1.2 - Features added:
+## 0.2.0 - Features added:
 * Total lines in selections can be displayed
 
 ## 0.1.1 - Features added:
