@@ -56,16 +56,24 @@ describe 'selection-counter', ->
         editor.setCursorBufferPosition([0, 0])
         expect(selectionCounter.style.display).toBe('none') if hideWhenEmpty
 
-    it 'shows correctly the number of cursors and selections', ->
+    it 'shows correctly the number of cursors, selections and lines', ->
       editor.setCursorBufferPosition([0, 0])
       editor.addSelectionForBufferRange([[0, 0], [0, 5]])
       editor.addSelectionForBufferRange([[0,7], [0, 9]])
       expect(selectionCounter.style.display).toBe('inline-block')
-      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '0').replace('%s', '2'))
+      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '0').replace('%s', '2').replace('%l', '1'))
 
       editor.setCursorBufferPosition([0, 0])
       editor.addCursorAtBufferPosition([0, 5])
       editor.addCursorAtBufferPosition([0, 7])
       editor.addSelectionForBufferRange([[0,9], [0, 11]])
       expect(selectionCounter.style.display).toBe('inline-block')
-      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '3').replace('%s', '1'))
+      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '3').replace('%s', '1').replace('%l', '1'))
+
+      editor.setText = "Hello, World!\nHola, Mundo!\nCiao, Mondo!"
+      editor.setCursorBufferPosition([0, 0])
+      editor.addSelectionForBufferRange([0, 0], [0, 5])
+      editor.addSelectionForBufferRange([1, 6], [1, 11])
+      editor.addSelectionForBufferRange([2, 4], [2, 6])
+      expect(selectionCounter.style.display).toBe('inline-block')
+      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '0').replace('%s', '3').replace('%l', '3'))
