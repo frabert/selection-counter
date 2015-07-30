@@ -1,3 +1,6 @@
+## 0.2.0 - Features added:
+* Total lines in selections can be displayed
+
 ## 0.1.1 - Features added:
 * Support for different alignment of the status string
 * Support for hiding the status string when there are no active selections

@@ -5,7 +5,7 @@ class SelectionCounterView extends HTMLDivElement
 
   attach: ->
     alignment = atom.config.get 'selection-counter.statusAlignment'
-    if(alignment == 'left')
+    if alignment == 'left'
       @tile = @statusBar.addLeftTile(item: this)
     else
       @tile = @statusBar.addRightTile(item: this)
@@ -36,7 +36,7 @@ class SelectionCounterView extends HTMLDivElement
 
     @updateSelectionText()
 
-  buildStatusString: (selections, cursors) ->
+  buildStatusString: (linesSelections, selections, cursors) ->
     pattern = atom.config.get 'selection-counter.statusString'
     hideWhenEmpty = atom.config.get 'selection-counter.hideWhenEmpty'
     hideWhenNoSelections = atom.config.get 'selection-counter.hideWhenNoSelections'
@@ -48,21 +48,24 @@ class SelectionCounterView extends HTMLDivElement
     else
       pattern.replace('%s', selections.toString())
         .replace('%c', cursors.toString())
+        .replace('%l', linesSelections.toString())
 
   updateSelectionText: ->
     editor = @getActiveTextEditor()
-    if(editor?)
+    if editor?
       selections = editor.getSelectedBufferRanges()
       cursors = editor.getCursorBufferPositions()
 
+      linesSelections = 0
       numSelections = 0
       i = 0
       while i < selections.length
         if !selections[i].isEmpty()
           numSelections++
+          linesSelections += selections[i].getRowCount()
         i++
 
-      statusString = @buildStatusString(numSelections, cursors.length - numSelections)
+      statusString = @buildStatusString(linesSelections, numSelections, cursors.length - numSelections)
       if statusString == ''
         @style.display = 'none'
       else
