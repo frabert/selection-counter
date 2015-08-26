@@ -1,4 +1,5 @@
 # selection-counter package
+[![Build Status](https://travis-ci.org/frabert/selection-counter.svg)](https://travis-ci.org/frabert/selection-counter)
 
 This package adds a simple indication of the number of lines in selection, number of cursors and number of selections in the buffer
 
