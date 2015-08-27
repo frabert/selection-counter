@@ -34,6 +34,10 @@ class SelectionCounterView extends HTMLDivElement
     @selectionRemoveSubscription = editor?.onDidRemoveSelection =>
       @updateSelectionText()
 
+    @selectionRangeChangeSubscription?.dispose()
+    @selectionRangeChangeSubscription = editor?.onDidChangeSelectionRange =>
+      @updateSelectionText()
+
     @updateSelectionText()
 
   buildStatusString: (linesSelections, selections, cursors) ->
