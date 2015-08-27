@@ -32,6 +32,7 @@ module.exports =
   consumeStatusBar: (statusBar) ->
     selectionCounterView.initialize(statusBar)
     selectionCounterView.attach()
+    @view = selectionCounterView
 
   deactivate: ->
     selectionCounterView?.destroy()
