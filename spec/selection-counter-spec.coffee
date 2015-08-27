@@ -1,3 +1,5 @@
+SelectionCounter = require '../lib/selection-counter'
+
 describe 'selection-counter', ->
   [selectionCounter] = []
 
@@ -15,7 +17,7 @@ describe 'selection-counter', ->
       atom.packages.activatePackage('selection-counter')
 
     runs ->
-      selectionCounter = document.querySelector('.selection-counter')
+      selectionCounter = SelectionCounter.view
       expect(selectionCounter).toExist()
 
   it 'is hidden when there is no open editor', ->
