@@ -44,6 +44,7 @@ describe 'selection-counter', ->
 
       atom.config.set 'selection-counter.hideWhenEmpty', false
       atom.config.set 'selection-counter.hideWhenNoSelections', false
+      editor.setText "'some dummy string'; 'Nothing special, really';"
       editor.setCursorBufferPosition([0, 0])
 
       expect(selectionCounter.style.display).toBe('inline-block')
@@ -53,6 +54,7 @@ describe 'selection-counter', ->
       atom.config.set 'selection-counter.statusString', '%c %s %l'
       atom.config.set 'selection-counter.hideWhenEmpty', false
       atom.config.set 'selection-counter.hideWhenNoSelections', false
+      editor.setText "'some dummy string'; 'Nothing special, really';"
 
       # Keep in mind we already have one cursor
       editor.setCursorBufferPosition([0, 0])
@@ -63,11 +65,13 @@ describe 'selection-counter', ->
       expect(selectionCounter.textContent).toBe('3 0 0')
 
       atom.config.set 'selection-counter.hideWhenEmpty', true
+      editor.setText "'some dummy string'; 'Nothing special, really';"
 
       editor.setCursorBufferPosition([0, 0])
       expect(selectionCounter.style.display).toBe('none')
 
       atom.config.set 'selection-counter.hideWhenNoSelections', true
+      editor.setText "'some dummy string'; 'Nothing special, really';"
 
       expect(selectionCounter.style.display).toBe('none')
       editor.setCursorBufferPosition([0, 0])
@@ -76,6 +80,7 @@ describe 'selection-counter', ->
     it 'shows correctly the number of cursors, selections and lines', ->
       atom.config.set 'selection-counter.hideWhenEmpty', false
       atom.config.set 'selection-counter.hideWhenNoSelections', false
+      editor.setText "'some dummy string'; 'Nothing special, really';"
 
       editor.setCursorBufferPosition([0, 0])
       editor.addSelectionForBufferRange([[0, 0], [0, 5]])
