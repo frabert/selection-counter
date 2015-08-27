@@ -24,18 +24,22 @@ class SelectionCounterView extends HTMLDivElement
 
     @positionSubscription?.dispose()
     @positionSubscription = editor?.onDidChangeCursorPosition =>
+      console.log 'onDidChangeCursorPosition'
       @updateSelectionText()
 
     @selectionAddSubscription?.dispose()
     @selectionAddSubscription = editor?.onDidAddSelection =>
+      console.log 'onDidAddSelection'
       @updateSelectionText()
 
     @selectionRemoveSubscription?.dispose()
     @selectionRemoveSubscription = editor?.onDidRemoveSelection =>
+      console.log 'onDidRemoveSelection'
       @updateSelectionText()
 
     @selectionRangeChangeSubscription?.dispose()
     @selectionRangeChangeSubscription = editor?.onDidChangeSelectionRange =>
+      console.log 'onDidChangeSelectionRange'
       @updateSelectionText()
 
     @updateSelectionText()
