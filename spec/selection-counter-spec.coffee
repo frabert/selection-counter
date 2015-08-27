@@ -38,39 +38,57 @@ describe 'selection-counter', ->
         editor.setText "'some dummy string'; 'Nothing special, really';"
 
     it 'behaves according to the config', ->
-      expect(selectionCounter.style.display).toBe('none') if hideWhenEmpty
-      unless hideWhenEmpty
-        expect(selectionCounter.style.display).toBe('inline-block')
-        expect(selectionCounter.textContent).toBe(pattern.replace('%c', '1').replace('%s', '0'))
+      atom.config.set 'selection-counter.statusString', '%c %s %l'
+      atom.config.set 'selection-counter.hideWhenEmpty', true
+      atom.config.set 'selection-counter.hideWhenNoSelections', true
+
+      expect(selectionCounter.style.display).toBe('none')
+
+      atom.config.set 'selection-counter.hideWhenEmpty', false
+      atom.config.set 'selection-counter.hideWhenNoSelections', false
+      
+      expect(selectionCounter.style.display).toBe('inline-block')
+      expect(selectionCounter.textContent).toBe('1 0 0')
 
     it 'shows correctly the number of cursors', ->
+      atom.config.set 'selection-counter.statusString', '%c %s %l'
+      atom.config.set 'selection-counter.hideWhenEmpty', false
+      atom.config.set 'selection-counter.hideWhenNoSelections', false
+
       # Keep in mind we already have one cursor
       editor.addCursorAtBufferPosition([0, 5])
       editor.addCursorAtBufferPosition([0, 7])
-      unless hideWhenNoSelections
-        expect(selectionCounter.style.display).toBe('inline-block')
-        expect(selectionCounter.textContent).toBe(pattern.replace('%c', '3').replace('%s', '0'))
-        editor.setCursorBufferPosition([0, 0])
-        expect(selectionCounter.style.display).toBe('none') if hideWhenEmpty
 
-      if hideWhenNoSelections
-        expect(selectionCounter.style.display).toBe('none')
-        editor.setCursorBufferPosition([0, 0])
-        expect(selectionCounter.style.display).toBe('none') if hideWhenEmpty
+      expect(selectionCounter.style.display).toBe('inline-block')
+      expect(selectionCounter.textContent).toBe('3 0 0')
+
+      atom.config.set 'selection-counter.hideWhenEmpty', true
+
+      editor.setCursorBufferPosition([0, 0])
+      expect(selectionCounter.style.display).toBe('none')
+
+      atom.config.set 'selection-counter.hideWhenNoSelections', true
+
+      expect(selectionCounter.style.display).toBe('none')
+      editor.setCursorBufferPosition([0, 0])
+      expect(selectionCounter.style.display).toBe('none')
 
     it 'shows correctly the number of cursors, selections and lines', ->
+      atom.config.set 'selection-counter.hideWhenEmpty', false
+      atom.config.set 'selection-counter.hideWhenNoSelections', false
+
       editor.setCursorBufferPosition([0, 0])
       editor.addSelectionForBufferRange([[0, 0], [0, 5]])
       editor.addSelectionForBufferRange([[0,7], [0, 9]])
       expect(selectionCounter.style.display).toBe('inline-block')
-      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '0').replace('%s', '2').replace('%l', '1'))
+      expect(selectionCounter.textContent).toBe('0 2 1')
 
       editor.setCursorBufferPosition([0, 0])
       editor.addCursorAtBufferPosition([0, 5])
       editor.addCursorAtBufferPosition([0, 7])
       editor.addSelectionForBufferRange([[0,9], [0, 11]])
       expect(selectionCounter.style.display).toBe('inline-block')
-      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '3').replace('%s', '1').replace('%l', '1'))
+      expect(selectionCounter.textContent).toBe('3 1 1')
 
       editor.setText = "Hello, World!\nHola, Mundo!\nCiao, Mondo!"
       editor.setCursorBufferPosition([0, 0])
@@ -78,4 +96,4 @@ describe 'selection-counter', ->
       editor.addSelectionForBufferRange([1, 6], [1, 11])
       editor.addSelectionForBufferRange([2, 4], [2, 6])
       expect(selectionCounter.style.display).toBe('inline-block')
-      expect(selectionCounter.textContent).toBe(pattern.replace('%c', '0').replace('%s', '3').replace('%l', '3'))
+      expect(selectionCounter.textContent).toBe('0 3 3')
