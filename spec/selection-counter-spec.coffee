@@ -32,21 +32,20 @@ describe 'selection-counter', ->
 
       runs ->
         editor = atom.workspace.getActiveTextEditor()
-        pattern = atom.config.get 'selection-counter.statusString'
-        hideWhenEmpty = atom.config.get 'selection-counter.hideWhenEmpty'
-        hideWhenNoSelections = atom.config.get 'selection-counter.hideWhenNoSelections'
         editor.setText "'some dummy string'; 'Nothing special, really';"
 
     it 'behaves according to the config', ->
       atom.config.set 'selection-counter.statusString', '%c %s %l'
       atom.config.set 'selection-counter.hideWhenEmpty', true
       atom.config.set 'selection-counter.hideWhenNoSelections', true
+      editor.setCursorBufferPosition([0, 0])
 
       expect(selectionCounter.style.display).toBe('none')
 
       atom.config.set 'selection-counter.hideWhenEmpty', false
       atom.config.set 'selection-counter.hideWhenNoSelections', false
-      
+      editor.setCursorBufferPosition([0, 0])
+
       expect(selectionCounter.style.display).toBe('inline-block')
       expect(selectionCounter.textContent).toBe('1 0 0')
 
@@ -56,6 +55,7 @@ describe 'selection-counter', ->
       atom.config.set 'selection-counter.hideWhenNoSelections', false
 
       # Keep in mind we already have one cursor
+      editor.setCursorBufferPosition([0, 0])
       editor.addCursorAtBufferPosition([0, 5])
       editor.addCursorAtBufferPosition([0, 7])
 
