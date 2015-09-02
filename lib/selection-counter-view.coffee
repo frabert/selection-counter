@@ -1,3 +1,5 @@
+_ = require 'underscore-plus'
+
 class SelectionCounterView extends HTMLDivElement
   initialize: (@statusBar) ->
     @classList.add('selection-counter', 'inline-block')
@@ -52,17 +54,47 @@ class SelectionCounterView extends HTMLDivElement
 
   updateSelectionText: ->
     editor = @getActiveTextEditor()
+    mergeSelections = (selections) ->
+      flattenedSelections = _.map selections, (s) -> s.getBufferRowRange()
+      sortedSelections = _.sortBy flattenedSelections, (x) -> x[0]
+      reduceLines = (s) ->
+        if(s.length is 0 or s.length is 1)
+          return s
+        else
+          a = s[0]
+          b = s[1]
+          tail = s.slice 2
+          inRange = (x) -> (a[0] <= x) && (a[1] >= x)
+          if(inRange b[0])
+            if(inRange b[1])
+              tail.unshift a
+              return reduceLines tail
+            else
+              c = [a[0], b[1]]
+              tail.unshift c
+              return reduceLines tail
+          else
+            tail.unshift b
+            tail = reduceLines tail
+            tail.unshift a
+            return tail
+
+      reduced = reduceLines sortedSelections
+      return reduced
+
     if editor?
       selections = editor.getSelectedBufferRanges()
       cursors = editor.getCursorBufferPositions()
 
-      linesSelections = 0
+      reducedSelections = mergeSelections editor.getSelections()
+      selectionLengths = _.map reducedSelections, (s) -> s[1] - s[0] + 1
+      linesSelections = _.reduce selectionLengths, ((memo, l) -> memo + l), 0
+
       numSelections = 0
       i = 0
       while i < selections.length
         if !selections[i].isEmpty()
           numSelections++
-          linesSelections += selections[i].getRowCount()
         i++
 
       statusString = @buildStatusString(linesSelections, numSelections, cursors.length - numSelections)
