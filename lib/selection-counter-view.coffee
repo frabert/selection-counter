@@ -45,9 +45,7 @@ class SelectionCounterView extends HTMLDivElement
   buildStatusString: (linesSelections, selections, cursors) ->
     pattern = atom.config.get 'selection-counter.statusString'
     hideWhenEmpty = atom.config.get 'selection-counter.hideWhenEmpty'
-    console.log hideWhenEmpty
     hideWhenNoSelections = atom.config.get 'selection-counter.hideWhenNoSelections'
-    console.log hideWhenNoSelections
 
     if selections == 0 and hideWhenNoSelections
       return ''
