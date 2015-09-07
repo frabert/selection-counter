@@ -3,8 +3,7 @@
   "main": "./lib/selection-counter",
   "version": "0.1.1",
   "description": "Shows the number of lines selected, cursors and selections",
-  "activationCommands": {
-  },
+  "activationCommands": {},
   "repository": "https://github.com/frabert/selection-counter",
   "license": "MIT",
   "engines": {
@@ -18,5 +17,6 @@
     }
   },
   "dependencies": {
+    "underscore-plus": "^1.6.6"
   }
 }
