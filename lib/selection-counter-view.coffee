@@ -8,9 +8,9 @@ class SelectionCounterView extends HTMLDivElement
   attach: ->
     alignment = atom.config.get 'selection-counter.statusAlignment'
     if alignment == 'left'
-      @tile = @statusBar.addLeftTile(item: this)
+      @tile = @statusBar.addLeftTile(item: this, priority: 0)
     else
-      @tile = @statusBar.addRightTile(item: this)
+      @tile = @statusBar.addRightTile(item: this, priority: 0)
 
   handleEvents: ->
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
